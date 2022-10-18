@@ -105,17 +105,25 @@
         }
         echo "</table>";
         /*ex5*/
-        $mois=array("janvier","fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre");
-        $couleur=array("blue","white","red","yellow","grey","lime","lightblue","fuchsia","lightgrey","olive","pink","purple");
+        $mois=array(1=>"janvier","fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre");
+        $couleur=array(1=>"blue","white","red","yellow","grey","lime","lightblue","fuchsia","lightgrey","olive","pink","purple");
         echo "<table border='1'>";
-        for($i=0;$i<count($mois);$i++){
-            echo "<tr>";
-                echo "<td>$i</td><td style='background-color:".$couleur[$i]."'>".$mois[$i]."</td>";
-                echo "<td>$i+1</td><td style='background-color:".$couleur[$i+1]."'>".$mois[$i+1]."</td>";
-                echo "<td>$i+2</td><td style='background-color:".$couleur[$i+2]."'>".$mois[$i+2]."</td>";
-                $i+=2;
-            echo "</tr>";
-        }
+        // for($i=1;$i<=count($mois);$i++){
+        //     echo "<tr>";
+        //         echo "<td>$i</td><td style='background-color:".$couleur[$i]."'>".$mois[$i]."</td>";
+        //         echo "<td>$i+1</td><td style='background-color:".$couleur[$i+1]."'>".$mois[$i+1]."</td>";
+        //         echo "<td>$i+2</td><td style='background-color:".$couleur[$i+2]."'>".$mois[$i+2]."</td>";
+        //         $i+=2;
+        //     echo "</tr>";
+        // }
+        for($i=1;$i<=count($mois);$i++){
+              //  echo "<tr>";
+                    echo "<td>$i</td><td style='background-color:".$couleur[$i]."'>".$mois[$i]."</td>";
+                    ($i%3==0) ? print('<tr></tr>') : '';
+              //  echo "</tr>";
+            }
+            echo "</table";
+
         //soultion avec foreach
         $mois_couleurs=array(
             "janvier"=>"blue",
@@ -137,6 +145,7 @@
         }
         echo "</table>";
         /*exercice 6 */
+        echo "/********exercice6******//////////////";
         $jours=array(
             'francais'=>array("lundi", "mardi","mercredi","jeudi","vendredi","samedi","dimanche"),
             'anglais'=>array("monday", "tuesday","wednesday","thursday","friday","saturday","sunday"),
