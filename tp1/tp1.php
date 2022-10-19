@@ -17,7 +17,7 @@
     */-->
     <!--ex2-->
     <?php
-        echo "exercice 2 : ";
+        echo "/********* exercice 2 : ***************/<br>";
         do{
             $a=rand(10,100);
             $b=rand(10,100);
@@ -26,7 +26,7 @@
         echo $a.'|'.$b;
     ?>
     <?php 
-    echo "<br>exercice 3 : ";
+    echo "/********* exercice 3 : ***************/<br>";
         $list_amis=array(
             'mejri'=>array(
                 'prenom'=>'talel',
@@ -57,7 +57,7 @@
 
     //******solution avec for
 
-
+        echo "soultion avec for ";
     $keys = array_keys($list_amis);
     echo"<table>";
     for($i=0; $i < count($keys); ++$i) {
@@ -93,6 +93,7 @@
         echo "</table>";
         echo "<br>";
         /*ex4 */
+        echo "/********* exercice 4 : ***************/<br>";
         $couleur_amis=array(
             'talel'=>'green',
             'chlendi'=>'red',
@@ -104,7 +105,7 @@
             echo "<tr style='background-color:$element'><td>$key</td></tr>";
         }
         echo "</table>";
-        /*ex5*/
+        echo "/********* exercice 5 : ***************/<br>";
         $mois=array(1=>"janvier","fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre");
         $couleur=array(1=>"blue","white","red","yellow","grey","lime","lightblue","fuchsia","lightgrey","olive","pink","purple");
         echo "<table border='1'>";
@@ -145,7 +146,7 @@
         }
         echo "</table>";
         /*exercice 6 */
-        echo "/********exercice6******//////////////";
+        echo "/********* exercice 6 : ***************/<br>";
         $jours=array(
             'francais'=>array("lundi", "mardi","mercredi","jeudi","vendredi","samedi","dimanche"),
             'anglais'=>array("monday", "tuesday","wednesday","thursday","friday","saturday","sunday"),
@@ -154,6 +155,21 @@
             foreach($element as $value){
                 echo "$key : $value<br>";
         }}
+        /*echo "essai";
+        $numeroDeMois = intval(date("m"));
+
+    //tableau contenant la liste des mois    
+    $mois = array(1 => 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+
+    //contenant la liste des couleurs
+    $couleur = array(1 => 'blue', 'white', 'red', 'yellow', 'grey', 'lime', 'lightblue', 'fuchsia', 'lightgrey', 'olive', 'pink', 'purple');
+
+    echo '<table border="1"><tr> ';
+    for ($i = 1; $i <= 12; $i++) {
+        echo "<td>" . $i . "</td><td bgcolor=$couleur[$i]>" . $mois[$i] . "</td>";
+        ($i % 3 == 0) ? print("</tr><tr>") : print("");
+    }
+    echo "</tr></table> ";*/
     ?>
 
 </body>
