@@ -10,18 +10,18 @@
 <body>
     <div class="container">
         <h1 class="text-center">todo list</h1>
+        <a href="./addtodo/" class="btn btn-primary">add todo</a>
 <?php if(array_key_exists('msg',$_GET)) :?>
         <div class="alert alert-success">
             <?=$_GET['msg']?>
         </div>
         <?php endif; ?>
 <?php 
- require_once "./db_connect.php";
+require_once "./db_connect.php";
  $query=$db->query('SELECT * FROM todos');
- $todos=$query->fetchAll();
- ?>
-
- <table class="table">
+$todos=$query->fetchAll();
+?>
+<table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
