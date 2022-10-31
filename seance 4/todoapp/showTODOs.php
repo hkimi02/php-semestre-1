@@ -11,7 +11,7 @@
     <div class="container">
         <h1 class="text-center">todo list</h1>
 <?php 
- $db = new PDO('mysql:host=localhost;dbname=dsi22_todo_app;charset:utf8', 'root','');
+ require_once "./db_connect.php";
  $query=$db->query('SELECT * FROM id');
  $todos=$query->fetchAll();
  ?>
@@ -29,7 +29,7 @@
 ?>
 
     <tr>
-      <th scope="row"><input type="checkbox" <?php echo $todo['complete'] ?  'checked' : ''?>></th>
+      <th scope="row"><input type="checkbox" name="completed" <?php echo $todo['complete'] ?  'checked' : ''?>></th>
       <td class="<?php echo $todo['complete'] ?  'text-decoration-line-through' : ''?>"><?php echo $todo['title'] ?></td>
     <td>
         <button class="btn btn-warning">edit</button>
@@ -38,7 +38,7 @@
     </td>
     </tr>
 <?php
- }
+}
 ?>
   </tbody>
 </table>
