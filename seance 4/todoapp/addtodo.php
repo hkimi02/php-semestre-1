@@ -13,18 +13,18 @@ $error=array();
         
         else{ 
             //$due_date=strtotime($due_date,'y-m-d');
-        $req=$db->prepare('INSERT INTO id (title,description,due_date,complete)
+        $req=$db->prepare('INSERT INTO todos (title,description,due_date,complete)
         VALUES(:title,:description,:due_date,:complete)');
         $req->execute([
             'title'=>$title,
             'description'=>$description,
             'due_date'=>$due_date,
-            'complete'=>1,
+            'complete'=>0,
         ]);
         goto todos;
     }}
     show:
     include "home.php";
     todos:
-    include "./showTODOs.php";
+    include "./listTodo.php";
 ?>

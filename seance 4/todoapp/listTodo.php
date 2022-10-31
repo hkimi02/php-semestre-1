@@ -10,11 +10,17 @@
 <body>
     <div class="container">
         <h1 class="text-center">todo list</h1>
+<?php if(array_key_exists('msg',$_GET)) :?>
+        <div class="alert alert-success">
+            <?=$_GET['msg']?>
+        </div>
+        <?php endif; ?>
 <?php 
  require_once "./db_connect.php";
- $query=$db->query('SELECT * FROM id');
+ $query=$db->query('SELECT * FROM todos');
  $todos=$query->fetchAll();
  ?>
+
  <table class="table">
   <thead>
     <tr>
@@ -33,7 +39,7 @@
       <td class="<?php echo $todo['complete'] ?  'text-decoration-line-through' : ''?>"><?php echo $todo['title'] ?></td>
     <td>
         <button class="btn btn-warning">edit</button>
-        <button class="btn btn-danger">delete</button>
+        <a href="deletetodo.php?delete=<?= $todo['id']?>"><button class="btn btn-danger">delete</button></a>
         <button class="btn btn-primary">details</button>
     </td>
     </tr>
