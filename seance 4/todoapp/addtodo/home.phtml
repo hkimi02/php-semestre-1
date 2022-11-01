@@ -16,17 +16,22 @@
             <?php } ?>         
             <div class="mb-3">
                 <label for="Title" class="form-label">todo title</label>
-                <input type="text" class="form-control" id="Title" name="title">
+                <input type="text" class="form-control" id="Title" name="title"  value="<?php echo $title ?>">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">description</label>
-                <textarea class="form-control" id="description" name="description"></textarea>
+                <input class="form-control" id="description" name="description" value="<?php echo $description ?>">
             </div>
             <div class="mb-3">
                 <label for="due_date" class="form-label">due date</label>
-                <input type="date" class="form-control" id="due_date" name="due_date">
+                <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo $due_date ?>">
             </div>
-            <button type="submit" class="btn btn-primary" name="submit">ADD</button>
+            <?php if(array_key_exists('edit',$_GET)) {?>
+                <button type="submit" class="btn btn-primary" name="edit">edit</button>
+            <?php } else { ?>
+                <button type="submit" class="btn btn-primary" name="submit">ADD</button>
+            <?php } ?>  
+            <a href="../listTodo.php" class="btn btn-danger">cancel</a>
         </form>
     </div>
 </body>

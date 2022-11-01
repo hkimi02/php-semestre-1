@@ -38,9 +38,9 @@ $todos=$query->fetchAll();
       <th scope="row"><input type="checkbox" name="completed" <?php echo $todo['complete'] ?  'checked' : ''?>></th>
       <td class="<?php echo $todo['complete'] ?  'text-decoration-line-through' : ''?>"><?php echo $todo['title'] ?></td>
     <td>
-        <button class="btn btn-warning">edit</button>
-        <a href="deletetodo.php?delete=<?= $todo['id']?>"><button class="btn btn-danger">delete</button></a>
         <button class="btn btn-primary">details</button>
+        <a href="deletetodo.php?delete=<?= $todo['id']?>"><button class="btn btn-danger">delete</button></a>
+        <a href="./addtodo/index.php?edit=<?= $todo['id']?>"><button class="btn btn-warning">edit</button></a>
     </td>
     </tr>
 <?php

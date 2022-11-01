@@ -1,7 +1,26 @@
 <?php
-    
-
 require_once "../db_connect.php";
+$title="";
+$description="";
+$due_date="";
+if(array_key_exists('edit',$_GET)){
+    $req=$db->prepare('SELECT * FROM todos WHERE id=:id');
+    $req->execute(['id'=>$_GET['edit']]);
+    $res=$req->fetch();
+    $title=$res['title'];
+    $description=$res['description'];
+    $due_date=$res['due_date'];
+}
+if(isset($_POST['edit'])){
+    $req=$db->prepare('UPDATE todos SET title=:title, description=:description , due_date=:due_date WHERE id=:id');
+    $req->execute([
+        'title'=>$title,
+        'description'=>$description,
+        'due_date'=>$due_date,
+        'id' => $_GET['edit'],
+    ]);
+    header("location:../listTodo.php?msg=record edited succesfully");
+}
 $error=array();
     if(isset($_POST['submit'])){
         extract($_POST);
@@ -22,7 +41,7 @@ $error=array();
             'due_date'=>$due_date,
             'complete'=>0,
         ]);
-        header("location:../lisTtodo.php?msg=todo added succesfully");
+        header("location:../listTodo.php?msg=todo added succesfully");
     }}
     show:
     include "./home.phtml";
