@@ -1,8 +1,18 @@
 <?php
 require_once "../db_connect.php";
+
 $title="";
 $description="";
 $due_date="";
+$id=null;
+if(array_key_exists('completed',$_GET)){
+    $req=$db->prepare('UPDATE todos SET complete=:complete  WHERE id=:id;');
+    $req->execute([
+        'id' =>$_GET['completed'],
+        'complete'=>1,
+    ]);
+    header("location:../listTodo.php?msg=todo completed");
+}
 if(array_key_exists('edit',$_GET)){
     $req=$db->prepare('SELECT * FROM todos WHERE id=:id');
     $req->execute(['id'=>$_GET['edit']]);
@@ -10,15 +20,23 @@ if(array_key_exists('edit',$_GET)){
     $title=$res['title'];
     $description=$res['description'];
     $due_date=$res['due_date'];
+    $id=$res['id'];
 }
+
 if(isset($_POST['edit'])){
-    $req=$db->prepare('UPDATE todos SET title=:title, description=:description , due_date=:due_date WHERE id=:id');
+
+    /*$title=$_POST['title'];
+    $description=$_POST['description'];
+    $due_date=$_POST['due_date'];*/
+    extract($_POST);
+    $req=$db->prepare('UPDATE todos SET title=:title , description=:description , due_date=:due_date WHERE id=:id;');
     $req->execute([
+        'id' =>$id,
         'title'=>$title,
         'description'=>$description,
         'due_date'=>$due_date,
-        'id' => $_GET['edit'],
     ]);
+
     header("location:../listTodo.php?msg=record edited succesfully");
 }
 $error=array();
@@ -28,7 +46,7 @@ $error=array();
             $error[0]="all input feilds should be feild";
             goto show;
         }
-        if(strlen($title)<5){
+        if(strlen($title)<3){
             $error[0]="enter a valid name";
         }
         else{

@@ -13,10 +13,11 @@
             <h1 class="text-center text-wieght-bold">add todo</h1>
             <?php if(count($error)!=0){ ?>
             <div class="alert alert-danger"><?php echo $error[0] ?></div> 
-            <?php } ?>         
+            <?php } ?>        
+            <input type="hidden" class="form-control"  name="id"  value=<?= $id ?>> 
             <div class="mb-3">
                 <label for="Title" class="form-label">todo title</label>
-                <input type="text" class="form-control" id="Title" name="title"  value="<?php echo $title ?>">
+                <input type="text" class="form-control" id="Title" name="title"  value=<?= $title ?>>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">description</label>
