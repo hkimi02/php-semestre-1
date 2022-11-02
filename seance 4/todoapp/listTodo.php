@@ -12,15 +12,15 @@
     <div class="container">
         <h1 class="text-center">todo list</h1>
         <a href="./addtodo/" class="btn btn-primary">add todo</a><br><br>
-        <form action="./searchProcess.php" method="POST">
-        <div class="input-group rounded">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search"/>
- <button class="btn btn-primary" type="submit">
-  <span class="input-group-text border-0 btn btn-primary" id="search-addon">
-  <i class="bi bi-search"></i>
-  </span>
-  </button>
-</div>
+        <form action="listTodo.php" method="GET">
+            <div class="input-group rounded">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value=<?= isset($_GET['search'] ) ? $_GET['search'] : '' ?>>
+                <button class="btn btn-primary" type="submit">
+                    <span class="input-group-text border-0 btn btn-primary" id="search-addon">
+                      <i class="bi bi-search"></i>
+                    </span>
+              </button>
+          </div>
 </form>
 <br><br>
 <?php if(array_key_exists('msg',$_GET)) :?>
@@ -30,11 +30,17 @@
         <?php endif; ?>
 <?php 
 require_once "./db_connect.php";
-if(array_key_exists('id_searched',$_GET)){
-$id_searched=$_GET["id_searched"];
-  $query=$db->prepare('SELECT * FROM todos WHERE id=:id');
-  $query->execute(['id'=>$id_searched]);
-  $todos=$query->fetchAll();
+if(array_key_exists('search',$_GET)){
+  //if(isset($_GET['search'])){
+   //$id_searched=$_GET["id_searched"];
+    extract($_GET);
+     $search_title='%'.$search.'%';
+     $query=$db->prepare('SELECT * FROM todos where title like :search');
+     $query->execute(['search'=>$search_title]);
+     $todos=$query->fetchAll();
+     if(!$todos){
+        $todos='vide';
+     }
 }else{
 $query=$db->query('SELECT * FROM todos');
 $todos=$query->fetchAll();
@@ -47,6 +53,15 @@ $todos=$query->fetchAll();
       <th scope="col">Handle</th>
     </tr>
   </thead>
+  <?php if($todos=='vide') : ?>
+  <tbody >
+     <tr>
+        <td>
+           Not found !
+        </td>
+     </tr>
+ </tbody>
+ <?php else : ?>
   <tbody>
 <?php
  foreach($todos as $todo){
@@ -81,6 +96,7 @@ $todos=$query->fetchAll();
 }
 ?>
   </tbody>
+  <?php endif; ?>
 </table>
 </div>
 <script src="./script/script.js"></script>

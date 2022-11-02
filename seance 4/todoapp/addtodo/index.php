@@ -13,14 +13,24 @@ if(array_key_exists('completed',$_GET)){
     ]);
     header("location:../listTodo.php?msg=todo completed");
 }
-if(array_key_exists('edit',$_GET)){
+
+
+if(isset($_GET['edit']) && !empty($_GET['edit'])){
     $req=$db->prepare('SELECT * FROM todos WHERE id=:id');
     $req->execute(['id'=>$_GET['edit']]);
     $res=$req->fetch();
+    if(!$res){
+        header("location:../listTodo.php");
+        exit;
+    }else{
     $title=$res['title'];
     $description=$res['description'];
     $due_date=$res['due_date'];
     $id=$res['id'];
+    }
+}else{
+    header("location:../listTodo.php");
+    exit;
 }
 
 if(isset($_POST['edit'])){
@@ -50,7 +60,7 @@ $error=array();
             $error[0]="enter a valid name";
         }
         else{
-            //$due_date=strtotime($due_date,'y-m-d');
+      //$due_date=strtotime($due_date,'y-m-d');
         $req=$db->prepare('INSERT INTO todos (title,description,due_date,complete)
         VALUES(:title,:description,:due_date,:complete)');
         $req->execute([
