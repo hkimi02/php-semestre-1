@@ -12,12 +12,17 @@
     <div class="container">
         <h1 class="text-center">todo list</h1>
         <a href="./addtodo/" class="btn btn-primary">add todo</a><br><br>
+        <form action="./searchProcess.php" method="POST">
         <div class="input-group rounded">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search"/>
+ <button class="btn btn-primary" type="submit">
   <span class="input-group-text border-0 btn btn-primary" id="search-addon">
   <i class="bi bi-search"></i>
   </span>
-</div><br><br>
+  </button>
+</div>
+</form>
+<br><br>
 <?php if(array_key_exists('msg',$_GET)) :?>
         <div class="alert alert-success">
             <?=$_GET['msg']?>
@@ -25,9 +30,15 @@
         <?php endif; ?>
 <?php 
 require_once "./db_connect.php";
- $query=$db->query('SELECT * FROM todos');
+if(array_key_exists('id_searched',$_GET)){
+$id_searched=$_GET["id_searched"];
+  $query=$db->prepare('SELECT * FROM todos WHERE id=:id');
+  $query->execute(['id'=>$id_searched]);
+  $todos=$query->fetchAll();
+}else{
+$query=$db->query('SELECT * FROM todos');
 $todos=$query->fetchAll();
-?>
+}?>
 <table class="table">
   <thead>
     <tr>
@@ -37,7 +48,7 @@ $todos=$query->fetchAll();
     </tr>
   </thead>
   <tbody>
- <?php
+<?php
  foreach($todos as $todo){
 ?>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -72,7 +83,7 @@ $todos=$query->fetchAll();
   </tbody>
 </table>
 </div>
-<script src="./script.js"></script>
+<script src="./script/script.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
