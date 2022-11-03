@@ -11,13 +11,13 @@
 <body>
 <div class="container">
     <h1 class="text-center">sign up user</h1>
-<form method="POST" action="./process.php">
-<?php if(count($error)!=0){ ?>
-            <div class="alert alert-danger"><?php echo $error[0] ?></div> 
-            <?php } ?>
-            <div class="alert alert-success">
-                <?php echo $_GET['msg']; ?>
-            </div>
+      <?php if(array_key_exists('msg',$_GET)): ?>
+               <div class="alert alert-<?=$_GET['type']?>">
+                  <?= $_GET['msg']; ?>
+               </div>
+      <?php endif; ?>
+<form class="shadow-lg p-5 rounded"  method="POST" action="./process.php" enctype="multipart/form-data">
+       
 <div class="mb-3">
     <label for="username" class="form-label">username <i class="bi bi-person-circle"></i></label>
     <input type="text" class="form-control" id="username" name="username">
