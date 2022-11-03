@@ -10,10 +10,17 @@
 </head>
 <body>
 <div class="container">
+    <h1 class="text-center">sign up user</h1>
 <form method="POST" action="./process.php">
+<?php if(count($error)!=0){ ?>
+            <div class="alert alert-danger"><?php echo $error[0] ?></div> 
+            <?php } ?>
+            <div class="alert alert-success">
+                <?php echo $_GET['msg']; ?>
+            </div>
 <div class="mb-3">
     <label for="username" class="form-label">username <i class="bi bi-person-circle"></i></label>
-    <input type="email" class="form-control" id="username" name="username">
+    <input type="text" class="form-control" id="username" name="username">
 </div>
 <div class="mb-3">
     <label for="email" class="form-label">Email address <i class="bi bi-envelope"></i></label>
@@ -32,7 +39,7 @@
     <input type="file" class="form-control" id="avatar" name="avatar">
 </div>
     <button type="submit" class="btn btn-primary" name="submit">sign up</button>
-</form>
+</form>  
 </div>
 
 
