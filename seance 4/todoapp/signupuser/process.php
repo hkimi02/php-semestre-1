@@ -32,11 +32,11 @@ if(isset($_POST['submit'])){
         }
         $name_file=md5(mt_rand()).'.'.$type;
         
-        if(!move_uploaded_file($_FILES['avatar']['tmp_name'],'./storage/'.$name_file)){
+        if(!move_uploaded_file($_FILES['avatar']['tmp_name'],'../storage/'.$name_file)){
             header("location:process.php?msg=image not uploaded&type=danger");
             exit;
         }
-        $avatar='../storage/'.$name_file;
+        $avatar='./storage/'.$name_file;
         if($password!=$password2){
             header("location:process.php?msg=passwords dont match&type=danger");
             exit;

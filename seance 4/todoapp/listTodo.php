@@ -13,7 +13,7 @@
     <div class="container">
         <div>
           <h1 class="text-center">welcome <?= $_SESSION['name'] ?></h1>
-          <img class="text-center" src="<?php echo $_SESSION['avatar']; ?>" width="300px" height="300px"> 
+          <img class="text-center" src="<?= $_SESSION['avatar']; ?>" width="300px" height="300px"> 
           <a href="./loginUser/logout.php"><button class="btn btn-primary">log out</button></a>
         </div>
         <h1 class="text-center">todo list</h1>
@@ -41,14 +41,17 @@ if(array_key_exists('search',$_GET)){
    //$id_searched=$_GET["id_searched"];
     extract($_GET);
      $search_title='%'.$search.'%';
-     $query=$db->prepare('SELECT * FROM todos where title like :search');
-     $query->execute(['search'=>$search_title]);
+     $query=$db->prepare('SELECT * FROM todos where title like :search AND id_user=:id_user');
+     $query->execute(['search'=>$search_title,
+                      'id_user'=>$_SESSION['id'],
+    ]);
      $todos=$query->fetchAll();
      if(!$todos){
         $todos='vide';
      }
 }else{
-$query=$db->query('SELECT * FROM todos');
+$query=$db->prepare('SELECT * FROM todos where id_user=:id_user');
+$query->execute(['id_user'=>$_SESSION['id']]);
 $todos=$query->fetchAll();
 }?>
 <table class="table">

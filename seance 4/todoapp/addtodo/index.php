@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../db_connect.php";
 
 $title="";
@@ -6,7 +7,7 @@ $description="";
 $due_date="";
 $id=null;
 if(array_key_exists('completed',$_GET)){
-    $req=$db->prepare('UPDATE todos SET complete=:complete  WHERE id=:id;');
+    $req=$db->prepare('UPDATE todos SET complete=:complete  WHERE id=:id');
     $req->execute([
         'id' =>$_GET['completed'],
         'complete'=>1,
@@ -17,7 +18,8 @@ if(array_key_exists('completed',$_GET)){
 
 if(isset($_GET['edit']) && !empty($_GET['edit'])){
     $req=$db->prepare('SELECT * FROM todos WHERE id=:id');
-    $req->execute(['id'=>$_GET['edit']]);
+    $req->execute(['id'=>$_GET['edit'],
+    ]);
     $res=$req->fetch();
     if(!$res){
         header("location:../listTodo.php");
@@ -34,19 +36,14 @@ if(isset($_GET['edit']) && !empty($_GET['edit'])){
 }
 
 if(isset($_POST['edit'])){
-
-    /*$title=$_POST['title'];
-    $description=$_POST['description'];
-    $due_date=$_POST['due_date'];*/
     extract($_POST);
-    $req=$db->prepare('UPDATE todos SET title=:title , description=:description , due_date=:due_date WHERE id=:id;');
+    $req=$db->prepare('UPDATE todos SET title=:title , description=:description , due_date=:due_date WHERE id=:id');
     $req->execute([
         'id' =>$id,
         'title'=>$title,
         'description'=>$description,
         'due_date'=>$due_date,
     ]);
-
     header("location:../listTodo.php?msg=record edited succesfully");
 }
 $error=array();
@@ -57,23 +54,20 @@ $error=array();
             goto show;
         }
         if(strlen($title)<3){
-            $error[0]="enter a valid name";
+            $error[0]="enter a valid title";
         }
         else{
-      //$due_date=strtotime($due_date,'y-m-d');
-        $req=$db->prepare('INSERT INTO todos (title,description,due_date,complete)
-        VALUES(:title,:description,:due_date,:complete)');
+        $req=$db->prepare('INSERT INTO todos (title,description,due_date,complete,id_user)
+        VALUES(:title,:description,:due_date,:complete,:id_user)');
         $req->execute([
             'title'=>$title,
             'description'=>$description,
             'due_date'=>$due_date,
             'complete'=>0,
+            'id_user'=>$_SESSION['id'],
         ]);
         header("location:../listTodo.php?msg=todo added succesfully");
     }}
     show:
     include "./home.phtml";
-
-
-
 ?>
