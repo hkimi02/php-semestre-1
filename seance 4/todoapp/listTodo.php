@@ -8,10 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   </head>
+  <?php session_start(); ?>
 <body>
     <div class="container">
+        <div>
+          <h1 class="text-center">welcome <?= $_SESSION['name'] ?></h1>
+          <img class="text-center" src="<?php echo $_SESSION['avatar']; ?>" width="300px" height="300px"> 
+          <a href="./loginUser/logout.php"><button class="btn btn-primary">log out</button></a>
+        </div>
         <h1 class="text-center">todo list</h1>
-        <a href="./addtodo/" class="btn btn-primary">add todo</a><br><br>
+        <a href="./addtodo/home.phtml" class="btn btn-primary">add todo</a><br><br>
         <form action="listTodo.php" method="GET">
             <div class="input-group rounded">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value=<?= isset($_GET['search'] ) ? $_GET['search'] : '' ?>>
