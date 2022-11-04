@@ -17,7 +17,7 @@
           <a href="./loginUser/logout.php"><button class="btn btn-primary">log out</button></a>
         </div>
         <h1 class="text-center">todo list</h1>
-        <a href="./addtodo/home.phtml" class="btn btn-primary">add todo</a><br><br>
+        <a href="./addtodo/" class="btn btn-primary">add todo</a><br><br>
         <form action="listTodo.php" method="GET">
             <div class="input-group rounded">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value=<?= isset($_GET['search'] ) ? $_GET['search'] : '' ?>>
@@ -93,7 +93,12 @@ $todos=$query->fetchAll();
   </div>
 </div>
     <tr>
-      <a href="./addtodo/index.php?completed=<?=$todo['id']?>"><th scope="row"><input type="checkbox" name="completed" <?php echo $todo['complete'] ?  'checked' : ''?>></th></a>
+      <th scope="row">
+         <form action="./checktodo.php" method="GET">
+          <input type="hidden" name="id" value=<?=$todo['id']?>>
+          <input  type="checkbox"  onChange="this.form.submit()" <?php echo $todo['complete'] ?  'checked' : ''?>>
+        </form>
+      </th>
       <td class="<?php echo $todo['complete'] ?  'text-decoration-line-through' : ''?>"><?php echo $todo['title'] ?></td>
     <td>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-info"></i></button>

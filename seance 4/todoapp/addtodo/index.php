@@ -1,22 +1,31 @@
 <?php
+
 session_start();
 require_once "../db_connect.php";
 
-$title="";
-$description="";
-$due_date="";
-$id=null;
-if(array_key_exists('completed',$_GET)){
+$trouve=false;
+if(isset($_POST['completed'])){
+
+    extract($_POST);
+    $req0=$db->prepare("SELECT  * from todos where id=$id");
+    $todo_check=$req0->fetch();
+
     $req=$db->prepare('UPDATE todos SET complete=:complete  WHERE id=:id');
     $req->execute([
-        'id' =>$_GET['completed'],
-        'complete'=>1,
+        'id' =>$id,
+        'complete'=>!$todo_check['complete'],
     ]);
-    header("location:../listTodo.php?msg=todo completed");
+   header('location:../listTodo.php');
+   
 }
 
 
 if(isset($_GET['edit']) && !empty($_GET['edit'])){
+    $trouve=true;
+    $title="";
+    $description="";
+    $due_date="";
+   $id=null;
     $req=$db->prepare('SELECT * FROM todos WHERE id=:id');
     $req->execute(['id'=>$_GET['edit'],
     ]);
@@ -30,10 +39,8 @@ if(isset($_GET['edit']) && !empty($_GET['edit'])){
     $due_date=$res['due_date'];
     $id=$res['id'];
     }
-}else{
-    header("location:../listTodo.php");
-    exit;
 }
+
 
 if(isset($_POST['edit'])){
     extract($_POST);
@@ -46,8 +53,12 @@ if(isset($_POST['edit'])){
     ]);
     header("location:../listTodo.php?msg=record edited succesfully");
 }
+
+
+
 $error=array();
     if(isset($_POST['submit'])){
+
         extract($_POST);
         if($title=="" || $description=="" || $due_date==""){
             $error[0]="all input feilds should be feild";
@@ -55,6 +66,7 @@ $error=array();
         }
         if(strlen($title)<3){
             $error[0]="enter a valid title";
+            goto show;
         }
         else{
         $req=$db->prepare('INSERT INTO todos (title,description,due_date,complete,id_user)
@@ -70,4 +82,5 @@ $error=array();
     }}
     show:
     include "./home.phtml";
+
 ?>

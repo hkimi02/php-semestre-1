@@ -10,25 +10,26 @@
 <body>
     <div class="container-md">
         <form method="post" action="index.php" class="shadow-sm">
-            <h1 class="text-center text-wieght-bold">add todo</h1>
+        <?=$trouve?>
+            <h1 class="text-center text-wieght-bold">add todoo</h1>
             <?php if(count($error)!=0): ?>
             <div class="alert alert-danger"><?= $error[0] ?></div> 
             <?php endif; ?>        
-            <input type="hidden" class="form-control"  name="id"  value=<?= $id ?> > 
+            <input type="hidden" class="form-control"  name="id"  value=<?= isset($id) ? $id : '' ?> > 
             <div class="mb-3">
                 <label for="Title" class="form-label">todo title</label>
-                <input type="text" class="form-control" id="Title" name="title"  value="<?= $title ?>">
+                <input type="text" class="form-control" id="Title" name="title"  value=<?= isset($title) ? $title : '' ?>>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">description</label>
-                <input class="form-control" id="description" name="description" value="<?= $description ?>">
+                <input class="form-control" id="description" name="description" value=<?= isset($description) ? $description :'' ?>>
             </div>
             <div class="mb-3">
                 <label for="due_date" class="form-label">due date</label>
-                <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo $due_date ?>">
+                <input type="date" class="form-control" id="due_date" name="due_date" value=<?= isset($due_date) ? $due_date : '' ?>>
             </div>
-            <?php if(isset($_GET['edit']) && !empty($_GET['edit'])) {?>
-                <button type="submit" class="btn btn-primary" name="edit">edit</button>
+            <?php if( $trouve) {?>
+                 <button type="submit" class="btn btn-primary" name="edit">edit</button>
             <?php } else { ?>
                 <button type="submit" class="btn btn-primary" name="submit">ADD</button>
             <?php } ?>  
