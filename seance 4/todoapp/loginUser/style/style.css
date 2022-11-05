@@ -1,4 +1,13 @@
 .login-container {
-    width: 40rem;
     margin-top: 12%;
+}
+
+.login-container form {
+    width: 40rem;
+}
+
+.logo {
+    height: 350px;
+    width: 40rem;
+    margin-left: 6%;
 }

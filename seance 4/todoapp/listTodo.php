@@ -7,17 +7,43 @@
     <title>todo app</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./style/style.css">
   </head>
   <?php session_start(); ?>
 <body>
     <div class="container">
-        <div>
-          <h1 class="text-center">welcome <?= $_SESSION['name'] ?></h1>
-          <img class="text-center" src="<?= $_SESSION['avatar']; ?>" width="300px" height="300px"> 
-          <a href="./loginUser/logout.php"><button class="btn btn-primary">log out</button></a>
+    <nav class="navbar navbar-expand-lg bg-light  mb-5">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#">TODO APP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./loginUser/logout.php"><span class="material-symbols-outlined">
+home
+</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="./loginUser/logout.php"><span class="material-symbols-outlined">
+logout
+</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="./addtodo/"><span class="material-symbols-outlined">
+add
+</span></a>
+        </li>
+</ul>     <div class="d-flex information">
+          <p class="text-center">welcome <strong><?= $_SESSION['name'] ?></strong></p>
+          <img class="avatar" src="<?= $_SESSION['avatar']; ?>" height="40px" width="40px"> 
+          </div>
         </div>
+</div>
+</nav>
         <h1 class="text-center">todo list</h1>
-        <a href="./addtodo/" class="btn btn-primary">add todo</a><br><br>
         <form action="listTodo.php" method="GET">
             <div class="input-group rounded">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value=<?= isset($_GET['search'] ) ? $_GET['search'] : '' ?>>
