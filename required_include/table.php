@@ -10,7 +10,8 @@
     <?php
     require ('./table.php');
     //importation de code de page table.php 
-    
     ?>
+    <table>
+    </table>
     </body>
 </html>
